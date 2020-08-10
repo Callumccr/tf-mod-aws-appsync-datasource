@@ -12,18 +12,21 @@ resource "aws_appsync_datasource" "default" {
     region   = var.type == "AMAZON_ELASTICSEARCH" ? lookup(var.elasticsearch_config, "region", "") : ""
   }
 
-  http_config {
-    endpoint = var.type == "HTTP" ? lookup(var.http_config, "endpoint", "") : ""
+  # http_config {
+  #   endpoint = var.type == "HTTP" ? lookup(var.http_config, "endpoint", "") : ""
+  # }
+
+  dynamic "dynamodb_config" {
+    for_each = var.type == "AMAZON_DYNAMODB" ? list(var.type) : []
+    content = {
+      table_name             = var.type == "AMAZON_DYNAMODB" ? lookup(var.dynamodb_config, "table_name", "") : ""
+      region                 = var.type == "AMAZON_DYNAMODB" ? lookup(var.dynamodb_config, "region", "") : ""
+      use_caller_credentials = var.type == "AMAZON_DYNAMODB" ? lookup(var.dynamodb_config, "use_caller_credentials", "") : null
+    }
   }
 
-  dynamodb_config {
-    table_name             = var.type == "AMAZON_DYNAMODB" ? lookup(var.dynamodb_config, "table_name", "") : ""
-    region                 = var.type == "AMAZON_DYNAMODB" ? lookup(var.dynamodb_config, "region", "") : ""
-    use_caller_credentials = var.type == "AMAZON_DYNAMODB" ? lookup(var.dynamodb_config, "use_caller_credentials", "") : null
-  }
-
-  lambda_config {
-    function_arn = var.type == "AWS_LAMBDA" ? lookup(var.elasticsearch_config, "function_arn", "") : ""
-  }
+  # lambda_config {
+  #   function_arn = var.type == "AWS_LAMBDA" ? lookup(var.elasticsearch_config, "function_arn", "") : ""
+  # }
 
 }

@@ -6,34 +6,24 @@ resource "aws_appsync_datasource" "default" {
   description      = var.description
   service_role_arn = var.service_role_arn != "" ? var.service_role_arn : 0
 
-  dynamic "dynamodb_config" {
-    for_each = var.type == "AMAZON_DYNAMODB" ? var.dynamodb_config : {}
-    iterator = AMAZON_DYNAMODB
-    content {
-      table_name             = AMAZON_DYNAMODB.table_name.value
-      region                 = AMAZON_DYNAMODB.region.value
-      use_caller_credentials = AMAZON_DYNAMODB.use_caller_credentials.value
-    }
-  }
 
   elasticsearch_config {
-      endpoint = var.type == "AMAZON_ELASTICSEARCH" ? lookup(var.elasticsearch_config, "endpoint", "") : ""
-      region   = var.type == "AMAZON_ELASTICSEARCH" ? lookup(var.elasticsearch_config, "region", "") : ""
+    endpoint = var.type == "AMAZON_ELASTICSEARCH" ? lookup(var.elasticsearch_config, "endpoint", "") : ""
+    region   = var.type == "AMAZON_ELASTICSEARCH" ? lookup(var.elasticsearch_config, "region", "") : ""
   }
 
-  dynamic "http_config" {
-    for_each = var.type == "HTTP" ? var.http_config : {}
-    iterator = HTTP
-    content {
-      endpoint = HTTP.endpoint.value
-    }
+  http_config {
+    endpoint = var.type == "HTTP" ? lookup(var.http_config, "endpoint", "") : ""
   }
 
-  dynamic "lambda_config" {
-    for_each = var.type == "AWS_LAMBDA" ? var.lambda_config : {}
-    iterator = AWS_LAMBDA
-    content {
-      function_arn = AWS_LAMBDA.function_arn.value
-    }
+  dynamodb_config {
+    table_name             = var.type == "AMAZON_DYNAMODB" ? lookup(var.dynamodb_config, "table_name", "") : ""
+    region                 = var.type == "AMAZON_DYNAMODB" ? lookup(var.dynamodb_config, "region", "") : ""
+    use_caller_credentials = var.type == "AMAZON_DYNAMODB" ? lookup(var.dynamodb_config, "use_caller_credentials", "") : ""
   }
+
+  lambda_config {
+    function_arn = var.type == "AWS_LAMBDA" ? lookup(var.elasticsearch_config, "function_arn", "") : ""
+  }
+
 }

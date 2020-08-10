@@ -127,6 +127,7 @@ TO-DO
 | Name | Description |
 |------|-------------|
 | arn | The ARN of the datasource |
+| name | The name of the datasource |
 
 
 

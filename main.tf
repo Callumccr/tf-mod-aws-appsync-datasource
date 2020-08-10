@@ -18,7 +18,7 @@ resource "aws_appsync_datasource" "default" {
 
   dynamic "dynamodb_config" {
     for_each = var.type == "AMAZON_DYNAMODB" ? list(var.type) : []
-    content = {
+    content {
       table_name             = var.type == "AMAZON_DYNAMODB" ? lookup(var.dynamodb_config, "table_name", "") : ""
       region                 = var.type == "AMAZON_DYNAMODB" ? lookup(var.dynamodb_config, "region", "") : ""
       use_caller_credentials = var.type == "AMAZON_DYNAMODB" ? lookup(var.dynamodb_config, "use_caller_credentials", "") : null

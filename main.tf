@@ -7,9 +7,12 @@ resource "aws_appsync_datasource" "default" {
   service_role_arn = var.service_role_arn != "" ? var.service_role_arn : ""
 
 
-  elasticsearch_config {
-    endpoint = var.type == "AMAZON_ELASTICSEARCH" ? lookup(var.elasticsearch_config, "endpoint", "") : ""
-    region   = var.type == "AMAZON_ELASTICSEARCH" ? lookup(var.elasticsearch_config, "region", "") : ""
+  dynamic "elasticsearch_config" {
+    for_each = var.type == "AMAZON_ELASTICSEARCH" ? list(var.type) : []
+    content {
+      endpoint = var.type == "AMAZON_ELASTICSEARCH" ? lookup(var.elasticsearch_config, "endpoint", "") : ""
+      region   = var.type == "AMAZON_ELASTICSEARCH" ? lookup(var.elasticsearch_config, "region", "") : ""
+    }
   }
 
   dynamic "http_config" {

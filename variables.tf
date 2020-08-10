@@ -65,7 +65,7 @@ variable "type" {
 variable "description" {
   description = "(Optional) -  A description of the DataSource."
   type        = string
-  default     = "Managed By Terramform"
+  default     = "Managed By Terraform"
 }
 
 variable "service_role_arn" {

@@ -12,9 +12,12 @@ resource "aws_appsync_datasource" "default" {
     region   = var.type == "AMAZON_ELASTICSEARCH" ? lookup(var.elasticsearch_config, "region", "") : ""
   }
 
-  # http_config {
-  #   endpoint = var.type == "HTTP" ? lookup(var.http_config, "endpoint", "") : ""
-  # }
+  dynamic "http_config" {
+    for_each = var.type == "HTTP" ? list(var.type) : []
+    content {
+      endpoint = var.type == "HTTP" ? lookup(var.http_config, "endpoint", "") : ""
+    }
+  }
 
   dynamic "dynamodb_config" {
     for_each = var.type == "AMAZON_DYNAMODB" ? list(var.type) : []
@@ -25,8 +28,11 @@ resource "aws_appsync_datasource" "default" {
     }
   }
 
-  # lambda_config {
-  #   function_arn = var.type == "AWS_LAMBDA" ? lookup(var.elasticsearch_config, "function_arn", "") : ""
-  # }
+  dynamic "lambda_config" {
+    for_each = var.type == "AWS_LAMBDA" ? list(var.type) : []
+    content {
+      function_arn = var.type == "AWS_LAMBDA" ? lookup(var.elasticsearch_config, "function_arn", "") : ""
+    }
+  }
 
 }

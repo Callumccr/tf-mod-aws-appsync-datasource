@@ -16,13 +16,9 @@ resource "aws_appsync_datasource" "default" {
     }
   }
 
-  dynamic "elasticsearch_config" {
-    for_each = var.type == "AMAZON_ELASTICSEARCH" ? var.elasticsearch_config : {}
-    iterator = AMAZON_ELASTICSEARCH
-    content {
-      endpoint = AMAZON_ELASTICSEARCH.endpoint.value
-      region   = AMAZON_ELASTICSEARCH.region.value
-    }
+  elasticsearch_config {
+      endpoint = var.type == "AMAZON_ELASTICSEARCH" ? lookup(var.elasticsearch_config, "endpoint", "") : ""
+      region   = var.type == "AMAZON_ELASTICSEARCH" ? lookup(var.elasticsearch_config, "region", "") : ""
   }
 
   dynamic "http_config" {

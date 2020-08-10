@@ -1,7 +1,7 @@
 resource "aws_appsync_datasource" "default" {
   count            = var.enabled ? 1 : 0
   api_id           = var.api_id
-  name             = var.name
+  name             = var.datasource_name
   type             = var.type
   description      = var.description
   service_role_arn = var.service_role_arn != "" ? var.service_role_arn : ""

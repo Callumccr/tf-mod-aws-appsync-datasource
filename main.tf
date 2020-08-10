@@ -20,8 +20,8 @@ resource "aws_appsync_datasource" "default" {
     for_each = var.type == "AMAZON_ELASTICSEARCH" ? var.elasticsearch_config : {}
     iterator = AMAZON_ELASTICSEARCH
     content {
-      endpoint = var.elasticsearch_config.endpoint
-      region   = var.elasticsearch_config.region
+      endpoint = lookup(var.elasticsearch_config, "endpoint", "")t
+      region   = lookup(var.elasticsearch_config, "region", "")t
     }
   }
 

@@ -4,7 +4,7 @@ resource "aws_appsync_datasource" "default" {
   name             = var.name
   type             = var.type
   description      = var.description
-  service_role_arn = list(var.service_role_arn) > 0 ? "" : var.service_role_arn
+  service_role_arn = var.service_role_arn != "" ? var.service_role_arn : 0
 
   dynamic "dynamodb_config" {
     for_each = var.type == "AMAZON_DYNAMODB" ? var.dynamodb_config : {}

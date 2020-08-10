@@ -21,7 +21,7 @@ resource "aws_appsync_datasource" "default" {
     iterator = AMAZON_ELASTICSEARCH
     content {
       endpoint = AMAZON_ELASTICSEARCH.endpoint.value
-      region   = AMAZON_ELASTICSEARCH.region.region
+      region   = AMAZON_ELASTICSEARCH.region.value
     }
   }
 

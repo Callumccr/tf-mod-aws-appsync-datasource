@@ -4,7 +4,7 @@ resource "aws_appsync_datasource" "default" {
   name             = var.name
   type             = var.type
   description      = var.description
-  service_role_arn = var.service_role_arn != "" ? var.service_role_arn : 0
+  service_role_arn = var.service_role_arn != "" ? var.service_role_arn : ""
 
 
   elasticsearch_config {

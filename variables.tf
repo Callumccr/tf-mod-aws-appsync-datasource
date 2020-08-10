@@ -52,7 +52,7 @@ variable "api_id" {
   type        = string
 }
 
-variable "name" {
+variable "datasource_name" {
   description = "(Required) -  A user-supplied name for the DataSource."
   type        = string
 }

@@ -10,6 +10,7 @@
 |------|-------------|------|---------|:-----:|
 | api\_id | (Required) -  The API ID for the GraphQL API for the DataSource. | `string` | n/a | yes |
 | availability\_zones | (Required) - The AWS avaialbility zones (e.g. ap-southeast-2a/b/c). Autoloaded from region.tfvars. | `list(string)` | n/a | yes |
+| datasource\_name | (Required) -  A user-supplied name for the DataSource. | `string` | n/a | yes |
 | type | (Required) -  The type of the DataSource. Valid values: AWS\_LAMBDA, AMAZON\_DYNAMODB, AMAZON\_ELASTICSEARCH, HTTP, NONE. | `string` | n/a | yes |
 | attributes | (Optional) - Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
 | aws\_account\_id | The AWS account id of the provider being deployed to (e.g. 12345678). Autoloaded from account.tfvars | `string` | `""` | no |

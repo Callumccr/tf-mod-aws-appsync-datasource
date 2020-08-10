@@ -110,7 +110,7 @@ TO-DO
 | aws\_assume\_role\_session\_name | (Optional) - The session name to use when making the AssumeRole call. | `string` | `""` | no |
 | aws\_region | The AWS region (e.g. ap-southeast-2). Autoloaded from region.tfvars. | `string` | `""` | no |
 | delimiter | (Optional) - Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes` | `string` | `"-"` | no |
-| description | (Optional) -  A description of the DataSource. | `string` | `"Managed By Terramform"` | no |
+| description | (Optional) -  A description of the DataSource. | `string` | `"Managed By Terraform"` | no |
 | dynamodb\_config | (Optional) -  DynamoDB settings | <code><pre>object({<br>    table_name             = string<br>    region                 = string<br>    use_caller_credentials = bool<br>  })<br></pre></code> | <code><pre>{<br>  "region": "eu-west-1",<br>  "table_name": "",<br>  "use_caller_credentials": true<br>}<br></pre></code> | no |
 | elasticsearch\_config | (Optional) -  Amazon Elasticsearch settings. | <code><pre>object({<br>    endpoint = string<br>    region   = string<br>  })<br></pre></code> | <code><pre>{<br>  "endpoint": "",<br>  "region": "eu-west-1"<br>}<br></pre></code> | no |
 | enabled | (Optional) -  A Switch that decides whether to create a terraform resource or run a provisioner. Default is true | `bool` | `true` | no |

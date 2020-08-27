@@ -53,14 +53,15 @@ variable "api_id" {
 }
 
 
-variable "datasource_config" {
+variable "dynamodb_config" {
   description = "(Optional) - A list of maps that contain configuration for appsync dynamodb configuration to iteration over"
   type = list(object({
-    name             = string
-    description      = string
-    type             = string
-    service_role_arn = string
-    dynamodb_config  = map(string)
+    name                   = string
+    description            = string
+    type                   = string
+    service_role_arn       = string
+    table_name             = string
+    use_caller_credentials = string
   }))
 }
 

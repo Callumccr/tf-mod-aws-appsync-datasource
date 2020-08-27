@@ -50,87 +50,20 @@ variable "enabled" {
 variable "datasource_config" {
   description = "(Optional) - A list of maps that contain configuration for appsync resolvers to iteration over"
   type = list(object({
-    name              = string
-    description       = string
-    type              = string
-    service_role_arn  = string
-    request_template  = string
-    response_template = string
-    dynamodb_config   = map(any)
+    name                 = string
+    description          = string
+    type                 = string
+    service_role_arn     = string
+    dynamodb_config      = map(any)
+    elasticsearch_config = map(any)
+    http_config          = map(any)
+    lambda_config        = map(any)
   }))
 }
 
 variable "api_id" {
   description = "(Required) -  The API ID for the GraphQL API for the DataSource."
   type        = string
-}
-
-variable "datasource_name" {
-  description = "(Required) -  A user-supplied name for the DataSource."
-  type        = string
-}
-
-variable "type" {
-  description = "(Required) -  The type of the DataSource. Valid values: AWS_LAMBDA, AMAZON_DYNAMODB, AMAZON_ELASTICSEARCH, HTTP, NONE."
-  type        = string
-}
-
-variable "description" {
-  description = "(Optional) -  A description of the DataSource."
-  type        = string
-  default     = "Managed By Terraform"
-}
-
-variable "service_role_arn" {
-  description = "(Optional) -  The IAM service role ARN for the data source."
-  type        = string
-  default     = ""
-}
-
-variable "dynamodb_config" {
-  description = "(Optional) -  DynamoDB settings"
-  type = object({
-    table_name             = string
-    region                 = string
-    use_caller_credentials = bool
-  })
-  default = {
-    table_name             = ""
-    region                 = "eu-west-1"
-    use_caller_credentials = true
-  }
-}
-
-variable "elasticsearch_config" {
-  description = "(Optional) -  Amazon Elasticsearch settings."
-  type = object({
-    endpoint = string
-    region   = string
-  })
-  default = {
-    endpoint = ""
-    region   = "eu-west-1"
-  }
-}
-
-variable "http_config" {
-  description = "(Optional) -  HTTP settings."
-  type = object({
-    endpoint = string
-  })
-  default = {
-    endpoint = ""
-  }
-}
-
-variable "lambda_config" {
-  description = "(Optional) -  AWS Lambda settings."
-  type = object({
-    function_arn = string
-  })
-  default = {
-    function_arn = ""
-  }
 }
 
 # -----------------------------------------------------------------------------

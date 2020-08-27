@@ -49,7 +49,7 @@ resource "aws_appsync_datasource" "lambda" {
   }
 }
 
-resource "aws_appsync_datasource" "empty" {
+resource "aws_appsync_datasource" "null" {
   for_each         = var.enabled == true && length(var.empty_config) > 0 ? { for d in var.empty_config : d.name => d } : {}
   api_id           = var.api_id
   name             = each.value.name

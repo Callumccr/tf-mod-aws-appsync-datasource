@@ -23,8 +23,8 @@ output "lambda" {
   description = "The ARN && Name of the datasource"
 }
 
-output "empty" {
-  value       = { for d in aws_appsync_datasource.empty : d.name => { "name" = d.name, "arn" = d.arn } }
+output "null" {
+  value       = { for d in aws_appsync_datasource.null : d.name => { "name" = d.name, "arn" = d.arn } }
   description = "The ARN && Name of the datasource"
 }
 

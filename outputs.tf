@@ -8,7 +8,7 @@
 # }
 
 output "dynamodb" {
-  value       = { for d in aws_appsync_datasource.dynamodb : d.name => d }
+  value       = { for d in aws_appsync_datasource.dynamodb : d.name => { "name" = d.name } }
   description = "The ARN of the datasource"
 }
 

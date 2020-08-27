@@ -1,5 +1,5 @@
 resource "aws_appsync_datasource" "dynamodb" {
-  for_each         = var.enabled ? { for d in var.dynamodb_config : d.name => d } : {}
+  for_each         = var.enabled == true && length(var.dynamodb_config) > 0 ? { for d in var.dynamodb_config : d.name => d } : {}
   api_id           = var.api_id
   name             = each.value.name
   type             = each.value.type
@@ -13,7 +13,7 @@ resource "aws_appsync_datasource" "dynamodb" {
 }
 
 resource "aws_appsync_datasource" "elasticsearch" {
-  for_each         = var.enabled ? { for d in var.elasticsearch_config : d.name => d } : {}
+  for_each         = var.enabled == true && length(var.elasticsearch_config) > 0 ? { for d in var.elasticsearch_config : d.name => d } : {}
   api_id           = var.api_id
   name             = each.value.name
   type             = each.value.type
@@ -26,7 +26,7 @@ resource "aws_appsync_datasource" "elasticsearch" {
 }
 
 resource "aws_appsync_datasource" "http" {
-  for_each         = var.enabled ? { for d in var.http_config : d.name => d } : {}
+  for_each         = var.enabled == true && length(var.http_config) > 0 ? { for d in var.http_config : d.name => d } : {}
   api_id           = var.api_id
   name             = each.value.name
   type             = each.value.type
@@ -38,7 +38,7 @@ resource "aws_appsync_datasource" "http" {
 }
 
 resource "aws_appsync_datasource" "lambda" {
-  for_each         = var.enabled ? { for d in var.lambda_config : d.name => d } : {}
+  for_each         = var.enabled == true && length(var.lambda_config) > 0 ? { for d in var.lambda_config : d.name => d } : {}
   api_id           = var.api_id
   name             = each.value.name
   type             = each.value.type
@@ -50,7 +50,7 @@ resource "aws_appsync_datasource" "lambda" {
 }
 
 resource "aws_appsync_datasource" "empty" {
-  for_each         = var.enabled ? { for d in var.null_config : d.name => d } : {}
+  for_each         = var.enabled == true && length(var.empty_config) > 0 ? { for d in var.empty_config : d.name => d } : {}
   api_id           = var.api_id
   name             = each.value.name
   type             = each.value.type

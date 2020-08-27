@@ -1,5 +1,5 @@
 resource "aws_appsync_datasource" "default" {
-  for_each         = var.enabled ? { for d in var.datasource_config : d.name => r } : {}
+  for_each         = var.enabled ? { for d in var.datasource_config : d.name => d } : {}
   api_id           = var.api_id
   name             = each.value.name
   type             = each.value.type
@@ -7,7 +7,7 @@ resource "aws_appsync_datasource" "default" {
   service_role_arn = each.value.service_role_arn != "" ? each.value.service_role_arn : ""
 
   dynamic "dynamodb_config" {
-    for_each = each.value.type == "AMAZON_DYNAMODB" ? 1 : 0
+    for_each = lookup({ for d in var.datasource_config : d.name => d }, "type", "") == "AMAZON_DYNAMODB" ? 1 : 0
     iterator = dynnamodb
     content {
       table_name             = lookup(each.value.dynamodb_config, "table_name", "")

@@ -59,6 +59,16 @@ variable "datasource_config" {
     http_config          = map(any)
     lambda_config        = map(any)
   }))
+  default = [{
+    name                 = ""
+    description          = ""
+    type                 = ""
+    service_role_arn     = ""
+    dynamodb_config      = {}
+    elasticsearch_config = {}
+    http_config          = {}
+    lambda_config        = {}
+  }]
 }
 
 variable "api_id" {

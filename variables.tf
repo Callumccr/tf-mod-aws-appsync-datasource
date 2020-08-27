@@ -47,28 +47,46 @@ variable "enabled" {
   default     = true
 }
 
-variable "datasource_config" {
-  description = "(Optional) - A list of maps that contain configuration for appsync resolvers to iteration over"
+variable "dynamodb_config" {
+  description = "(Optional) - A list of maps that contain configuration for appsync dynamodb configuration to iteration over"
+  type = list(object({
+    name             = string
+    description      = string
+    type             = string
+    service_role_arn = string
+    dynamodb_config  = map(string)
+  }))
+}
+variable "elasticsearch_config" {
+  description = "(Optional) - A list of maps that contain configuration for appsync elasticsearch configuration to iteration over"
   type = list(object({
     name                 = string
     description          = string
     type                 = string
     service_role_arn     = string
-    dynamodb_config      = map(string)
     elasticsearch_config = map(string)
-    http_config          = map(string)
-    lambda_config        = map(string)
   }))
-  default = [{
-    name                 = ""
-    description          = ""
-    type                 = ""
-    service_role_arn     = ""
-    dynamodb_config      = {}
-    elasticsearch_config = {}
-    http_config          = {}
-    lambda_config        = {}
-  }]
+}
+
+variable "https_config" {
+  description = "(Optional) - A list of maps that contain configuration for appsync http configuration to iteration over"
+  type = list(object({
+    name             = string
+    description      = string
+    type             = string
+    service_role_arn = string
+    https_config     = map(string)
+  }))
+}
+
+variable "empty_config" {
+  description = "(Optional) - A list of maps that contain configuration for appsync empty configuration to iteration over"
+  type = list(object({
+    name             = string
+    description      = string
+    type             = string
+    service_role_arn = string
+  }))
 }
 
 variable "api_id" {

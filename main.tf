@@ -6,22 +6,6 @@ resource "aws_appsync_datasource" "default" {
   description      = each.value.description
   service_role_arn = each.value.service_role_arn != "" ? each.value.service_role_arn : ""
 
-
-  dynamic "elasticsearch_config" {
-    for_each = var.type == "AMAZON_ELASTICSEARCH" ? list(var.type) : []
-    content {
-      endpoint = var.type == "AMAZON_ELASTICSEARCH" ? lookup(var.elasticsearch_config, "endpoint", "") : ""
-      region   = var.type == "AMAZON_ELASTICSEARCH" ? lookup(var.elasticsearch_config, "region", "") : ""
-    }
-  }
-
-  dynamic "http_config" {
-    for_each = var.type == "HTTP" ? list(var.type) : []
-    content {
-      endpoint = var.type == "HTTP" ? lookup(var.http_config, "endpoint", "") : ""
-    }
-  }
-
   dynamic "dynamodb_config" {
     for_each = each.value.type == "AMAZON_DYNAMODB" ? 1 : 0
     iterator = dynnamodb
@@ -32,11 +16,26 @@ resource "aws_appsync_datasource" "default" {
     }
   }
 
-  dynamic "lambda_config" {
-    for_each = var.type == "AWS_LAMBDA" ? list(var.type) : []
-    content {
-      function_arn = var.type == "AWS_LAMBDA" ? lookup(var.elasticsearch_config, "function_arn", "") : ""
-    }
-  }
+  # dynamic "elasticsearch_config" {
+  #   for_each = var.type == "AMAZON_ELASTICSEARCH" ? list(var.type) : []
+  #   content {
+  #     endpoint = var.type == "AMAZON_ELASTICSEARCH" ? lookup(var.elasticsearch_config, "endpoint", "") : ""
+  #     region   = var.type == "AMAZON_ELASTICSEARCH" ? lookup(var.elasticsearch_config, "region", "") : ""
+  #   }
+  # }
+
+  # dynamic "http_config" {
+  #   for_each = var.type == "HTTP" ? list(var.type) : []
+  #   content {
+  #     endpoint = var.type == "HTTP" ? lookup(var.http_config, "endpoint", "") : ""
+  #   }
+  # }
+
+  # dynamic "lambda_config" {
+  #   for_each = var.type == "AWS_LAMBDA" ? list(var.type) : []
+  #   content {
+  #     function_arn = var.type == "AWS_LAMBDA" ? lookup(var.elasticsearch_config, "function_arn", "") : ""
+  #   }
+  # }
 
 }

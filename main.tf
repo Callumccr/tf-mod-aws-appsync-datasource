@@ -1,10 +1,10 @@
 resource "aws_appsync_datasource" "default" {
-  count            = var.enabled ? 1 : 0
+  for_each         = var.enabled ? { for d in var.dynamodb_config : d.name => r } : {}
   api_id           = var.api_id
-  name             = var.datasource_name
-  type             = var.type
-  description      = var.description
-  service_role_arn = var.service_role_arn != "" ? var.service_role_arn : ""
+  name             = each.value.name
+  type             = each.value.type
+  description      = each.value.description
+  service_role_arn = each.value.service_role_arn != "" ? each.value.service_role_arn : ""
 
 
   dynamic "elasticsearch_config" {
@@ -23,11 +23,12 @@ resource "aws_appsync_datasource" "default" {
   }
 
   dynamic "dynamodb_config" {
-    for_each = var.type == "AMAZON_DYNAMODB" ? list(var.type) : []
+    for_each = each.value.type == "AMAZON_DYNAMODB" ? 1 : 0
+    iterator = dynnamodb
     content {
-      table_name             = var.type == "AMAZON_DYNAMODB" ? lookup(var.dynamodb_config, "table_name", "") : ""
-      region                 = var.type == "AMAZON_DYNAMODB" ? lookup(var.dynamodb_config, "region", "") : ""
-      use_caller_credentials = var.type == "AMAZON_DYNAMODB" ? lookup(var.dynamodb_config, "use_caller_credentials", "") : null
+      table_name             = lookup(each.value.dynamodb_config, "table_name", "")
+      region                 = lookup(each.value.dynamodb_config, "region", "")
+      use_caller_credentials = lookup(each.value.dynamodb_config, "use_caller_credentials", "")
     }
   }
 

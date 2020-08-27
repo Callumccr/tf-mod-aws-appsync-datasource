@@ -8,7 +8,7 @@ output "arn" {
 }
 
 output "name" {
-  value       = var.datasource_name
+  value       = { for d in var.dynamodb_config : d.name => d }
   description = "The name of the datasource"
 }
 

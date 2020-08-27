@@ -47,6 +47,19 @@ variable "enabled" {
   default     = true
 }
 
+variable "dynamodb_config" {
+  description = "(Optional) - A list of maps that contain configuration for appsync resolvers to iteration over"
+  type = list(object({
+    name              = string
+    description       = string
+    type              = string
+    service_role_arn  = string
+    request_template  = string
+    response_template = string
+    dynamodb_config   = map(any)
+  }))
+}
+
 variable "api_id" {
   description = "(Required) -  The API ID for the GraphQL API for the DataSource."
   type        = string

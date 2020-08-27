@@ -7,12 +7,12 @@ resource "aws_appsync_datasource" "default" {
   service_role_arn = each.value.service_role_arn != "" ? each.value.service_role_arn : ""
 
   dynamic "dynamodb_config" {
-    for_each = lookup({ for d in var.datasource_config : d.name => d }, "type", "") == "AMAZON_DYNAMODB" ? 1 : 0
+    for_each = lookup({ for d in var.datasource_config : d.name => d }, "type", "") == "AMAZON_DYNAMODB" ? { for d in var.datasource_config : d.name => d } : 0
     iterator = dynnamodb
     content {
-      table_name             = lookup(each.value.dynamodb_config, "table_name", "")
-      region                 = lookup(each.value.dynamodb_config, "region", "")
-      use_caller_credentials = lookup(each.value.dynamodb_config, "use_caller_credentials", "")
+      table_name             = lookup(dynnamodb.dynamodb_config, "table_name", "")
+      region                 = lookup(dynnamodb.dynamodb_config, "region", "")
+      use_caller_credentials = lookup(dynnamodb.dynamodb_config, "use_caller_credentials", "")
     }
   }
 

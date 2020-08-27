@@ -2,14 +2,31 @@
 # Outputs: TF-MOD-AWS-APPSYNC-DATASOURCE 
 # -----------------------------------------------------------------------------
 
-output "arn" {
-  value       = aws_appsync_datasource.default.*.arn
-  description = "The ARN of the datasource"
+
+output "dynamodb" {
+  value       = { for d in aws_appsync_datasource.dynamodb : d.name => { "name" = d.name, "arn" = d.arn } }
+  description = "The ARN && Name of the dynamodb datasources"
 }
 
-output "name" {
-  value       = var.datasource_name
-  description = "The name of the datasource"
+output "elasticsearch" {
+  value       = { for d in aws_appsync_datasource.elasticsearch : d.name => { "name" = d.name, "arn" = d.arn } }
+  description = "The ARN && Name of the elasticsearch datasources"
 }
+
+output "http" {
+  value       = { for d in aws_appsync_datasource.http : d.name => { "name" = d.name, "arn" = d.arn } }
+  description = "The ARN && Name of the datasource"
+}
+
+output "lambda" {
+  value       = { for d in aws_appsync_datasource.lambda : d.name => { "name" = d.name, "arn" = d.arn } }
+  description = "The ARN && Name of the datasource"
+}
+
+output "null" {
+  value       = { for d in aws_appsync_datasource.null : d.name => { "name" = d.name, "arn" = d.arn } }
+  description = "The ARN && Name of the datasource"
+}
+
 
 

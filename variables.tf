@@ -52,72 +52,59 @@ variable "api_id" {
   type        = string
 }
 
-variable "datasource_name" {
-  description = "(Required) -  A user-supplied name for the DataSource."
-  type        = string
+variable "empty_config" {
+  description = "(Optional) - A list of maps that contain configuration for appsync dynamodb configuration to iteration over"
+  type = list(object({
+    name             = string
+    description      = string
+    type             = string
+    service_role_arn = string
+  }))
 }
 
-variable "type" {
-  description = "(Required) -  The type of the DataSource. Valid values: AWS_LAMBDA, AMAZON_DYNAMODB, AMAZON_ELASTICSEARCH, HTTP, NONE."
-  type        = string
-}
-
-variable "description" {
-  description = "(Optional) -  A description of the DataSource."
-  type        = string
-  default     = "Managed By Terraform"
-}
-
-variable "service_role_arn" {
-  description = "(Optional) -  The IAM service role ARN for the data source."
-  type        = string
-  default     = ""
-}
 
 variable "dynamodb_config" {
-  description = "(Optional) -  DynamoDB settings"
-  type = object({
+  description = "(Optional) - A list of maps that contain configuration for appsync dynamodb configuration to iteration over"
+  type = list(object({
+    name                   = string
+    description            = string
+    type                   = string
+    service_role_arn       = string
     table_name             = string
-    region                 = string
-    use_caller_credentials = bool
-  })
-  default = {
-    table_name             = ""
-    region                 = "eu-west-1"
-    use_caller_credentials = true
-  }
+    use_caller_credentials = string
+  }))
 }
 
 variable "elasticsearch_config" {
-  description = "(Optional) -  Amazon Elasticsearch settings."
-  type = object({
-    endpoint = string
-    region   = string
-  })
-  default = {
-    endpoint = ""
-    region   = "eu-west-1"
-  }
+  description = "(Optional) - A list of maps that contain configuration for appsync elasticsearch configuration to iteration over"
+  type = list(object({
+    name             = string
+    description      = string
+    type             = string
+    service_role_arn = string
+    endpoint         = string
+  }))
 }
 
 variable "http_config" {
-  description = "(Optional) -  HTTP settings."
-  type = object({
-    endpoint = string
-  })
-  default = {
-    endpoint = ""
-  }
+  description = "(Optional) - A list of maps that contain configuration for appsync http configuration to iteration over"
+  type = list(object({
+    name             = string
+    description      = string
+    type             = string
+    service_role_arn = string
+    endpoint         = string
+  }))
 }
 
 variable "lambda_config" {
-  description = "(Optional) -  AWS Lambda settings."
-  type = object({
+  description = "(Optional) - A list of maps that contain configuration for appsync empty configuration to iteration over"
+  type = list(object({
+    name         = string
+    description  = string
+    type         = string
     function_arn = string
-  })
-  default = {
-    function_arn = ""
-  }
+  }))
 }
 
 # -----------------------------------------------------------------------------

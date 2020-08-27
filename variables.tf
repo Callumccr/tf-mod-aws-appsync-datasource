@@ -52,7 +52,7 @@ variable "api_id" {
   type        = string
 }
 
-variable "null_config" {
+variable "empty_config" {
   description = "(Optional) - A list of maps that contain configuration for appsync dynamodb configuration to iteration over"
   type = list(object({
     name             = string

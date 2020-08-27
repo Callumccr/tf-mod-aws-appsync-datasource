@@ -47,7 +47,13 @@ variable "enabled" {
   default     = true
 }
 
-variable "dynamodb_config" {
+variable "api_id" {
+  description = "(Required) -  The API ID for the GraphQL API for the DataSource."
+  type        = string
+}
+
+
+variable "datasource_config" {
   description = "(Optional) - A list of maps that contain configuration for appsync dynamodb configuration to iteration over"
   type = list(object({
     name             = string
@@ -57,42 +63,38 @@ variable "dynamodb_config" {
     dynamodb_config  = map(string)
   }))
 }
-variable "elasticsearch_config" {
-  description = "(Optional) - A list of maps that contain configuration for appsync elasticsearch configuration to iteration over"
-  type = list(object({
-    name                 = string
-    description          = string
-    type                 = string
-    service_role_arn     = string
-    elasticsearch_config = map(string)
-  }))
-}
 
-variable "https_config" {
-  description = "(Optional) - A list of maps that contain configuration for appsync http configuration to iteration over"
-  type = list(object({
-    name             = string
-    description      = string
-    type             = string
-    service_role_arn = string
-    https_config     = map(string)
-  }))
-}
+# variable "elasticsearch_config" {
+#   description = "(Optional) - A list of maps that contain configuration for appsync elasticsearch configuration to iteration over"
+#   type = list(object({
+#     name                 = string
+#     description          = string
+#     type                 = string
+#     service_role_arn     = string
+#     elasticsearch_config = map(string)
+#   }))
+# }
 
-variable "empty_config" {
-  description = "(Optional) - A list of maps that contain configuration for appsync empty configuration to iteration over"
-  type = list(object({
-    name             = string
-    description      = string
-    type             = string
-    service_role_arn = string
-  }))
-}
+# variable "https_config" {
+#   description = "(Optional) - A list of maps that contain configuration for appsync http configuration to iteration over"
+#   type = list(object({
+#     name             = string
+#     description      = string
+#     type             = string
+#     service_role_arn = string
+#     https_config     = map(string)
+#   }))
+# }
 
-variable "api_id" {
-  description = "(Required) -  The API ID for the GraphQL API for the DataSource."
-  type        = string
-}
+# variable "empty_config" {
+#   description = "(Optional) - A list of maps that contain configuration for appsync empty configuration to iteration over"
+#   type = list(object({
+#     name             = string
+#     description      = string
+#     type             = string
+#     service_role_arn = string
+#   }))
+# }
 
 # -----------------------------------------------------------------------------
 # Variables: TF-MOD-LABEL

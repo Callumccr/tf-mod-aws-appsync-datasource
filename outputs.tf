@@ -2,14 +2,9 @@
 # Outputs: TF-MOD-AWS-APPSYNC-DATASOURCE 
 # -----------------------------------------------------------------------------
 
-output "arn" {
-  value       = aws_appsync_datasource.default.*.arn
+output "dynamodb" {
+  value       = {for d in var.dynamodb_config : d.name => merge(d, {for d in aws_appsync_datasource.dynamodb : arn => element(aws_appsync_datasource.dynamodb.*.arn, count.index)} 
   description = "The ARN of the datasource"
-}
-
-output "name" {
-  value       = { for d in var.datasource_config : d.name => d }
-  description = "The name of the datasource"
 }
 
 

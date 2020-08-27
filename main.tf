@@ -1,5 +1,5 @@
 resource "aws_appsync_datasource" "default" {
-  for_each         = var.enabled ? { for d in var.dynamodb_config : d.name => r } : {}
+  for_each         = var.enabled ? { for d in var.datasource_config : d.name => r } : {}
   api_id           = var.api_id
   name             = each.value.name
   type             = each.value.type

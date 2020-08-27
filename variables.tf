@@ -47,7 +47,7 @@ variable "enabled" {
   default     = true
 }
 
-variable "dynamodb_config" {
+variable "datasource_config" {
   description = "(Optional) - A list of maps that contain configuration for appsync resolvers to iteration over"
   type = list(object({
     name              = string

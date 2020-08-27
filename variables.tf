@@ -52,6 +52,16 @@ variable "api_id" {
   type        = string
 }
 
+variable "null_config" {
+  description = "(Optional) - A list of maps that contain configuration for appsync dynamodb configuration to iteration over"
+  type = list(object({
+    name             = string
+    description      = string
+    type             = string
+    service_role_arn = string
+  }))
+}
+
 
 variable "dynamodb_config" {
   description = "(Optional) - A list of maps that contain configuration for appsync dynamodb configuration to iteration over"
@@ -65,37 +75,37 @@ variable "dynamodb_config" {
   }))
 }
 
-# variable "elasticsearch_config" {
-#   description = "(Optional) - A list of maps that contain configuration for appsync elasticsearch configuration to iteration over"
-#   type = list(object({
-#     name                 = string
-#     description          = string
-#     type                 = string
-#     service_role_arn     = string
-#     elasticsearch_config = map(string)
-#   }))
-# }
+variable "elasticsearch_config" {
+  description = "(Optional) - A list of maps that contain configuration for appsync elasticsearch configuration to iteration over"
+  type = list(object({
+    name             = string
+    description      = string
+    type             = string
+    service_role_arn = string
+    endpoint         = string
+  }))
+}
 
-# variable "https_config" {
-#   description = "(Optional) - A list of maps that contain configuration for appsync http configuration to iteration over"
-#   type = list(object({
-#     name             = string
-#     description      = string
-#     type             = string
-#     service_role_arn = string
-#     https_config     = map(string)
-#   }))
-# }
+variable "http_config" {
+  description = "(Optional) - A list of maps that contain configuration for appsync http configuration to iteration over"
+  type = list(object({
+    name             = string
+    description      = string
+    type             = string
+    service_role_arn = string
+    endpoint         = string
+  }))
+}
 
-# variable "empty_config" {
-#   description = "(Optional) - A list of maps that contain configuration for appsync empty configuration to iteration over"
-#   type = list(object({
-#     name             = string
-#     description      = string
-#     type             = string
-#     service_role_arn = string
-#   }))
-# }
+variable "lambda_config" {
+  description = "(Optional) - A list of maps that contain configuration for appsync empty configuration to iteration over"
+  type = list(object({
+    name         = string
+    description  = string
+    type         = string
+    function_arn = string
+  }))
+}
 
 # -----------------------------------------------------------------------------
 # Variables: TF-MOD-LABEL

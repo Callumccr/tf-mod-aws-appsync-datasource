@@ -12,25 +12,48 @@ resource "aws_appsync_datasource" "dynamodb" {
   }
 }
 
-# dynamic "elasticsearch_config" {
-#   for_each = var.type == "AMAZON_ELASTICSEARCH" ? list(var.type) : []
-#   content {
-#     endpoint = var.type == "AMAZON_ELASTICSEARCH" ? lookup(var.elasticsearch_config, "endpoint", "") : ""
-#     region   = var.type == "AMAZON_ELASTICSEARCH" ? lookup(var.elasticsearch_config, "region", "") : ""
-#   }
-# }
+resource "aws_appsync_datasource" "elasticsearch" {
+  for_each         = var.enabled ? { for d in var.elasticsearch_config : d.name => d } : {}
+  api_id           = var.api_id
+  name             = each.value.name
+  type             = each.value.type
+  description      = each.value.description
+  service_role_arn = each.value.service_role_arn != "" ? each.value.service_role_arn : ""
+  elasticsearch_config {
+    endpoint = each.value.endpoint
+    region   = var.aws_region
+  }
+}
 
-# dynamic "http_config" {
-#   for_each = var.type == "HTTP" ? list(var.type) : []
-#   content {
-#     endpoint = var.type == "HTTP" ? lookup(var.http_config, "endpoint", "") : ""
-#   }
-# }
+resource "aws_appsync_datasource" "http" {
+  for_each         = var.enabled ? { for d in var.http_config : d.name => d } : {}
+  api_id           = var.api_id
+  name             = each.value.name
+  type             = each.value.type
+  description      = each.value.description
+  service_role_arn = each.value.service_role_arn != "" ? each.value.service_role_arn : ""
+  http_config {
+    endpoint = each.value.endpoint
+  }
+}
 
-# dynamic "lambda_config" {
-#   for_each = var.type == "AWS_LAMBDA" ? list(var.type) : []
-#   content {
-#     function_arn = var.type == "AWS_LAMBDA" ? lookup(var.elasticsearch_config, "function_arn", "") : ""
-#   }
-# }
+resource "aws_appsync_datasource" "lambda" {
+  for_each         = var.enabled ? { for d in var.lambda_config : d.name => d } : {}
+  api_id           = var.api_id
+  name             = each.value.name
+  type             = each.value.type
+  description      = each.value.description
+  service_role_arn = each.value.service_role_arn != "" ? each.value.service_role_arn : ""
+  lambda_config {
+    function_arn = each.value.function_arn
+  }
+}
 
+resource "aws_appsync_datasource" "empty" {
+  for_each         = var.enabled ? { for d in var.null_config : d.name => d } : {}
+  api_id           = var.api_id
+  name             = each.value.name
+  type             = each.value.type
+  description      = each.value.description
+  service_role_arn = each.value.service_role_arn != "" ? each.value.service_role_arn : ""
+}

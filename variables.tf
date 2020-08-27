@@ -54,10 +54,10 @@ variable "datasource_config" {
     description          = string
     type                 = string
     service_role_arn     = string
-    dynamodb_config      = map(any)
-    elasticsearch_config = map(any)
-    http_config          = map(any)
-    lambda_config        = map(any)
+    dynamodb_config      = map(string)
+    elasticsearch_config = map(string)
+    http_config          = map(string)
+    lambda_config        = map(string)
   }))
   default = [{
     name                 = ""

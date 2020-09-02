@@ -76,7 +76,8 @@ resource "local_file" "kylin_token" {
 }
 
 resource "null_resource" "kylin_token" {
-  count = var.enabled && list(var.kylin_token_config) != [] ? 1 : 0
+  count      = var.enabled && list(var.kylin_token_config) != [] ? 1 : 0
+  depends_on = [local_file.kylin_token, template_file.kylin_token]
   triggers = {
     kylin_config = jsonencode(var.kylin_token_config)
   }

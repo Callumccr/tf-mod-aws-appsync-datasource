@@ -37,18 +37,34 @@ variable "availability_zones" {
   type        = list(string)
 }
 
+variable "aws_access_key_id" {
+  description = "(Required) - The AWS STS reuiqred access key id"
+  type        = string
+}
+
+variable "aws_secret_access_key" {
+  description = "(Required) - The AWS STS reuiqred secret access key"
+  type        = string
+}
+
 # -----------------------------------------------------------------------------
 # Variables: TF-MOD-AWS-APPSYNC-DATASOURCE
 # -----------------------------------------------------------------------------
 
 variable "enabled" {
-  description = "(Optional) -  A Switch that decides whether to create a terraform resource or run a provisioner. Default is true"
+  description = "(Optional) - A Switch that decides whether to create a terraform resource or run a provisioner. Default is true"
   type        = bool
   default     = true
 }
 
+variable "interpreter" {
+  description = "(Optional) - If provided, this is a list of interpreter arguments used to execute the command. The first argument is the interpreter itself. It can be provided as a relative path to the current working directory or as an absolute path."
+  type        = string
+  default     = "/bin/bash"
+}
+
 variable "api_id" {
-  description = "(Required) -  The API ID for the GraphQL API for the DataSource."
+  description = "(Required) - The API ID for the GraphQL API for the DataSource."
   type        = string
 }
 
@@ -60,6 +76,12 @@ variable "empty_config" {
     type             = string
     service_role_arn = string
   }))
+}
+
+variable "kylin_token_config" {
+  description = "(Optional) - A list of maps that contain configuration for appsync dynamodb configuration to iteration over"
+  type        = map(any)
+  default     = {}
 }
 
 

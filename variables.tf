@@ -85,7 +85,7 @@ variable "kylin_token_config" {
     description      = string
     type             = string
     service_role_arn = string
-    http_config      = map(any)
+    http_config      = object({})
   })
 }
 

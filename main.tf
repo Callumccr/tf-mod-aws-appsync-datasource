@@ -88,7 +88,7 @@ resource "null_resource" "kylin_token" {
 
                 echo 'Creating Kylin Token Datasource...'
                 aws appsync create-data-source \
-                --api-id="${var.apid_id}" \
+                --api-id="${var.api_id}" \
                 --type="${lookup(var.kylin_token_config, "type", "")}" \
                 --name="${lookup(var.kylin_token_config, "name", "")}" \
                 --description="${lookup(var.kylin_token_config, "description", "")}" \

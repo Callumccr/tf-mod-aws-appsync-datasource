@@ -111,7 +111,7 @@ resource "null_resource" "kylin_token" {
                 --name="${lookup(var.kylin_token_config, "name", "")}" \
                 --description="${lookup(var.kylin_token_config, "description", "")}" \
                 --service-role-arn="${lookup(var.kylin_token_config, "service_role_arn", "")}" \
-                --http-config="${file("${path.module}/kylin_token.json")}
+                --http-config="file:////kylin_token.json"
                 EOT
 
   }

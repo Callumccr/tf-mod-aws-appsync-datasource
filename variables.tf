@@ -80,8 +80,13 @@ variable "empty_config" {
 
 variable "kylin_token_config" {
   description = "(Optional) - A list of maps that contain configuration for appsync dynamodb configuration to iteration over"
-  type        = map(any)
-  default     = {}
+  type = object({
+    name             = string
+    description      = string
+    type             = string
+    service_role_arn = string
+    http_config      = map(any)
+  })
 }
 
 

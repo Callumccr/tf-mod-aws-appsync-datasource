@@ -85,7 +85,16 @@ variable "kylin_token_config" {
     description      = string
     type             = string
     service_role_arn = string
-    http_config      = object({})
+    http_config = object({
+      endpoint = string
+      authorizationConfig = object({
+        authorizationType = string
+        awsIamConfig = object({
+          signingRegion      = string
+          signingServiceName = string
+        })
+      })
+    })
   })
 }
 

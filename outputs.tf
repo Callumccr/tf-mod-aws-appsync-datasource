@@ -13,7 +13,7 @@ output "elasticsearch" {
   description = "The ARN && Name of the elasticsearch datasources"
 }
 
-output "kylin" {
+output "http" {
   value       = { for d in aws_appsync_datasource.http : d.name => { "name" = d.name, "arn" = d.arn } }
   description = "The ARN && Name of the datasource"
 }

@@ -70,6 +70,11 @@ data "template_file" "kylin_token" {
   }
 }
 
+resource "local_file" "kylin_token" {
+  content  = jsonencode(data.template_file.kylin_token.rendered)
+  filename = "${path.module}/kylintoken.json"
+}
+
 resource "null_resource" "kylin_token" {
   count = var.enabled && list(var.kylin_token_config) != [] ? 1 : 0
   triggers = {
@@ -105,7 +110,7 @@ resource "null_resource" "kylin_token" {
                 --name="${lookup(var.kylin_token_config, "name", "")}" \
                 --description="${lookup(var.kylin_token_config, "description", "")}" \
                 --service-role-arn="${lookup(var.kylin_token_config, "service_role_arn", "")}" \
-                --http-config="${jsonencode(data.template_file.kylin_token.rendered)}"
+                --http-config="${path.module}/kylintoken.json"
                 EOT
 
   }

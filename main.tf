@@ -93,7 +93,7 @@ resource "null_resource" "kylin_token" {
                 --name="${lookup(var.kylin_token_config, "name", "")}" \
                 --description="${lookup(var.kylin_token_config, "description", "")}" \
                 --service-role-arn="${lookup(var.kylin_token_config, "service_role_arn", "")}" \
-                --http-config="${jsonencode(var.kylin_token_config.http_config)}"
+                --http-config=${jsonencode(var.kylin_token_config.http_config)}
                 EOT
 
   }

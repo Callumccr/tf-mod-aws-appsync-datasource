@@ -79,7 +79,7 @@ variable "empty_config" {
 }
 
 variable "kylin_token_config" {
-  description = "(Optional) - A list of maps that contain configuration for appsync dynamodb configuration to iteration over"
+  description = "(Optional) - A object that contains configuration for the appsync kylin token datasource"
   type = object({
     name             = string
     description      = string

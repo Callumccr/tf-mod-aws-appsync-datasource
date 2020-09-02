@@ -19,7 +19,7 @@ output "kylin" {
 }
 
 output "kylin_token" {
-  value       = [for d in var.kylin_token_config : value.name]
+  value       = lookup(var.kylin_token_config.id, "")
   description = "The ARN && Name of the datasource"
 }
 

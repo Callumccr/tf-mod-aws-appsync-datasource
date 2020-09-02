@@ -61,7 +61,7 @@ resource "aws_appsync_datasource" "null" {
 resource "null_resource" "kylin_token" {
   count = var.enabled && list(var.kylin_token_config) != [] ? 1 : 0
   triggers = {
-    endpoint = var.http_config
+    endpoint = var.kylin_token_config
   }
   provisioner "local-exec" {
     interpreter = [var.interpreter, "-c"]
